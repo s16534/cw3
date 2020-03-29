@@ -3,17 +3,53 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using WebApplication1.Models;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
-namespace WebApplication1
+namespace WebApplication1.StudentsController
 {
-    public class HomeController : Controller
+    [ApiController]
+    [Route("api/students")]
+    public class StudentsController : ControllerBase
     {
-        // GET: /<controller>/
-        public IActionResult Index()
+        [HttpGet("{id}")]
+        public IActionResult GetStudent(int id)
         {
-            return View();
+            if (id == 1)
+            {
+                return Ok("Kowalski");
+            } else if(id == 2)
+            {
+                return Ok("Malewski");
+            }
+
+            return NotFound("Nie znaleziono studenta");
         }
+
+        [HttpGet]
+        public string GetStudents(string orderBy)
+        {
+            return $"Kowalski, Malewski, Andrzejewski, sortowanie={orderBy}";
+        }
+
+        [HttpPost]
+        public IActionResult CreateStudent(Student student)
+        {
+            student.IndexNumber = $"s{new Random().Next(1, 20000)}";
+            return Ok(student);
+        }
+
+        [HttpDelete]
+        public string delete(string remove)
+        {
+            return $"Usuwanie ukończone {remove}";
+        }
+
+        [HttpPut]
+        public string put(string put)
+        {
+            return $"Aktulizacja ukończona {put}";
+        }
+
     }
 }
