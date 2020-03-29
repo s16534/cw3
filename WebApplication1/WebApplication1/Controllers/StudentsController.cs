@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using WebApplication1.DAL;
 using WebApplication1.Models;
 
 namespace WebApplication1.StudentsController
@@ -12,24 +13,17 @@ namespace WebApplication1.StudentsController
     [Route("api/students")]
     public class StudentsController : ControllerBase
     {
-        [HttpGet("{id}")]
-        public IActionResult GetStudent(int id)
-        {
-            if (id == 1)
-            {
-                return Ok("Kowalski");
-            } else if(id == 2)
-            {
-                return Ok("Malewski");
-            }
+        private readonly IdbService idbService;
 
-            return NotFound("Nie znaleziono studenta");
+        public StudentsController(IdbService dbService)
+        {
+            idbService = dbService;
         }
 
         [HttpGet]
-        public string GetStudents(string orderBy)
+        public IActionResult GetStudents(string orderBy)
         {
-            return $"Kowalski, Malewski, Andrzejewski, sortowanie={orderBy}";
+            return Ok(idbService.GetStudents());
         }
 
         [HttpPost]
@@ -39,16 +33,16 @@ namespace WebApplication1.StudentsController
             return Ok(student);
         }
 
-        [HttpDelete]
-        public string delete(string remove)
+        [HttpDelete("{id}")]
+        public IActionResult DeleteStudent(int deleteId)
         {
-            return $"Usuwanie ukończone {remove}";
+            return Ok("Usuwanie ukończone");
         }
 
-        [HttpPut]
-        public string put(string put)
+        [HttpPut("{id}")]
+        public IActionResult PutStudent(int PutId)
         {
-            return $"Aktulizacja ukończona {put}";
+            return Ok("Aktualizacja dokończona");
         }
 
     }

@@ -4,27 +4,25 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApplication1.Models;
 
-namespace WebApplication1.Services
+namespace WebApplication1.DAL
 {
-    public class MockStudentsDb : IStudentsDb
+    public class MockDbService : IdbService
     {
         private static List<Student> students = new List<Student>();
 
-        public MockStudentsDb()
+        public MockDbService()
         {
             students.Add(new Student
             {
                 IntStudent = 1,
                 FirstName = "Jarosław",
-                LastName = "Rodak",
-                IndexNumber = "11111"
+                LastName = "Rodak"
             });
             students.Add(new Student
             {
                 IntStudent = 2,
                 FirstName = "Maciej",
-                LastName = "Polak",
-                IndexNumber = "11112"
+                LastName = "Polak"
             });
         }
 

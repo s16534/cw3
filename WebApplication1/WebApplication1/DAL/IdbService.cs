@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApplication1.Models;
 
-namespace WebApplication1.Services
+namespace WebApplication1.DAL
 {
-    public interface IStudentsDb
+    public interface IdbService
     {
-        IEnumerable<Student> GetStudents(); 
+        public IEnumerable<Student> GetStudents(); 
     }
 }
